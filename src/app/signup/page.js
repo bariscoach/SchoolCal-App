@@ -41,10 +41,7 @@ export default function SignupPage() {
                 <p className={styles.subtitle}>Subscribe to your child's school calendar</p>
 
                 <form className={styles.form} onSubmit={handleCheckout}>
-                    <div className={styles.inputGroup}>
-                        <label htmlFor="name">Full Name</label>
-                        <input type="text" id="name" placeholder="Jane Doe" className={styles.input} required />
-                    </div>
+
 
                     <div className={styles.inputGroup}>
                         <label htmlFor="email">Email</label>
