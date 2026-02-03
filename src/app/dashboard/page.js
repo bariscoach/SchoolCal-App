@@ -30,6 +30,25 @@ export default async function DashboardPage({ searchParams }) {
         });
     }
 
+    // Sort and find next event
+    subscribedBoards.forEach(board => {
+        // Sort by date ascending
+        board.events.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+        // Find next event (Today is Feb 3, 2026)
+        const today = new Date();
+        // Optional: Manual override for testing if needed
+        // const today = new Date('2026-02-03');
+
+        const nextEvent = board.events.find(e => {
+            const eventDate = new Date(e.date);
+            // Compare YYYY-MM-DD to avoid time issues
+            return eventDate.toISOString().split('T')[0] >= today.toISOString().split('T')[0];
+        });
+
+        board.nextEvent = nextEvent;
+    });
+
     return (
         <div className={styles.wrapper}>
             <Navbar />
@@ -61,11 +80,19 @@ export default async function DashboardPage({ searchParams }) {
                                     <span className={styles.region}>{board.region}</span>
                                 </div>
                                 <div className={styles.eventsPreview}>
-                                    <p><strong>{board.events.length}</strong> events synced.</p>
-                                    {board.events.length > 0 && (
+                                    {board.nextEvent ? (
                                         <div className={styles.nextEvent}>
-                                            Next: {board.events[0].title} on {board.events[0].date}
+                                            <span style={{ fontSize: '0.8rem', opacity: 0.7, textTransform: 'uppercase', letterSpacing: '1px' }}>Up Next</span>
+                                            <div style={{ fontSize: '1.1rem', fontWeight: '600', marginTop: '0.2rem' }}>
+                                                {board.nextEvent.title}
+                                            </div>
+                                            <div style={{ color: board.themeColor, marginTop: '0.2rem' }}>
+                                                {new Date(board.nextEvent.date).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}
+                                            </div>
+                                            {board.nextEvent.isPaDay && <span style={{ display: 'inline-block', marginTop: '0.5rem', padding: '2px 8px', borderRadius: '12px', background: 'rgba(255,255,255,0.1)', fontSize: '0.75rem' }}>PA Day</span>}
                                         </div>
+                                    ) : (
+                                        <p>No upcoming events.</p>
                                     )}
                                 </div>
                                 <div className={styles.actions}>

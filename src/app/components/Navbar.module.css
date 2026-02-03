@@ -3,10 +3,119 @@
     justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
-    margin: 1.5rem;
+    margin-right: 1rem;
     position: sticky;
     top: 1rem;
     z-index: 100;
+}
+
+/* Profile Dropdown Styles */
+.profileWrapper {
+    position: relative;
+    z-index: 50;
+}
+
+.profileButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+
+.avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.initials {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #FF0080, #7928CA);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    font-size: 0.9rem;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 0.5rem;
+    width: 200px;
+    background: rgba(20, 20, 20, 0.8) !important;
+    /* Darker background for menu */
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.userInfo {
+    padding: 0.5rem 0.75rem;
+}
+
+.userName {
+    font-weight: 600;
+    color: white;
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.userEmail {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.divider {
+    border: 0;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+    margin: 0.5rem 0;
+}
+
+.menuItem {
+    display: block;
+    padding: 0.5rem 0.75rem;
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    font-size: 0.9rem;
+    border-radius: 6px;
+    transition: background 0.2s, color 0.2s;
+    text-align: left;
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+.menuItem:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.signOut {
+    color: #ff4d4d;
+}
+
+.signOut:hover {
+    background: rgba(255, 77, 77, 0.1);
+    color: #ff6666;
 }
 
 .logo {
