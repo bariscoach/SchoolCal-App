@@ -22,12 +22,7 @@ export default function Hero() {
                         How it works →
                     </a>
                 </div>
-                <div className={styles.trustBadge}>
-                    <span className={styles.dots}>
-                        🟢 TDSB 🟣 TCDSB 🟠 YRDSB
-                    </span>
-                    <p>Supporting all major Ontario school boards</p>
-                </div>
+
             </div>
 
             <div className={styles.visual}>
