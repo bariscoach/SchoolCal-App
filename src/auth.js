@@ -1,8 +1,13 @@
 import NextAuth from "next-auth"
 import Google from "next-auth/providers/google"
+import { PrismaAdapter } from "@auth/prisma-adapter"
+import { PrismaClient } from "@prisma/client"
+
+const prisma = new PrismaClient()
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
-    session: { strategy: "jwt" },
+    adapter: PrismaAdapter(prisma),
+    session: { strategy: "jwt" }, // Keep JWT for performance, but Adapter ensures User creation
     providers: [
         Google({
             clientId: process.env.GOOGLE_CLIENT_ID,
@@ -21,6 +26,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         },
     },
     secret: process.env.AUTH_SECRET,
-    debug: true, // Enable logs to debug Vercel issue
-    trustHost: true, // Explicitly trust host for Vercel
+    debug: true,
+    trustHost: true,
 })
