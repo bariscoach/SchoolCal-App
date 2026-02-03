@@ -81,6 +81,7 @@ model Event {
   description   String?
   isPaDay       Boolean     @default(false)
   isHoliday     Boolean     @default(false)
+  audience      String      @default("ALL") // ALL, ELEMENTARY, SECONDARY
   
   schoolBoard   SchoolBoard @relation(fields: [schoolBoardId], references: [id])
   schoolBoardId String

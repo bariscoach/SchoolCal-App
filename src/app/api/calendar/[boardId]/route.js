@@ -6,6 +6,10 @@ const prisma = new PrismaClient();
 export async function GET(request, { params }) {
     const { boardId } = await params;
 
+    // Get audience from query param (ALL, ELEMENTARY, SECONDARY)
+    const { searchParams } = new URL(request.url);
+    const audience = searchParams.get('audience') || 'ALL';
+
     const board = await prisma.schoolBoard.findUnique({
         where: { id: boardId },
         include: { events: true }
@@ -15,7 +19,12 @@ export async function GET(request, { params }) {
         return new Response('Board not found', { status: 404 });
     }
 
-    const events = board.events.map(event => {
+    // Filter events
+    const filteredEvents = board.events.filter(event =>
+        event.audience === 'ALL' || event.audience === audience || audience === 'ALL'
+    );
+
+    const events = filteredEvents.map(event => {
         // Format date from YYYY-MM-DD to YYYYMMDD
         const dateStr = event.date.replace(/-/g, '');
 

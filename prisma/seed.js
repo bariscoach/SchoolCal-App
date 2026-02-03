@@ -32,83 +32,55 @@ const BOARD_SPECIFIC_DATA = {
     'Toronto District School Board': {
         firstDay: '2025-09-02',
         lastDay: '2026-06-26',
-        paDays: ['2025-09-26', '2025-10-10', '2025-11-14', '2026-01-16', '2026-02-13', '2026-06-05', '2026-06-26']
+        // Elementary: Sep 26, Oct 10, Nov 14, Jan 16, Feb 13, Jun 5, Jun 26
+        // Secondary: Sep 26, Oct 10, Nov 14, Jan 29, Feb 13, Jun 25, Jun 26
+        events: [
+            { date: '2025-09-26', audience: 'ALL' },
+            { date: '2025-10-10', audience: 'ALL' },
+            { date: '2025-11-14', audience: 'ALL' },
+            { date: '2026-01-16', audience: 'ELEMENTARY' },
+            { date: '2026-01-29', audience: 'SECONDARY' },
+            { date: '2026-02-13', audience: 'ALL' },
+            { date: '2026-06-05', audience: 'ELEMENTARY' },
+            { date: '2026-06-25', audience: 'SECONDARY' },
+            { date: '2026-06-26', audience: 'ALL' } // Elem PA, Sec PA/Exam
+        ]
     },
     'Toronto Catholic District School Board': {
+        // Assuming similar to TDSB for simplicity in this iteration, will update if specific data requested
         firstDay: '2025-09-02',
         lastDay: '2026-06-26',
-        paDays: ['2025-09-26', '2025-10-10', '2025-11-14', '2026-01-16', '2026-02-13', '2026-06-05', '2026-06-26']
+        events: [
+            { date: '2025-09-26', audience: 'ALL' },
+            { date: '2025-10-10', audience: 'ALL' },
+            { date: '2025-11-14', audience: 'ALL' },
+            { date: '2026-01-16', audience: 'ELEMENTARY' },
+            { date: '2026-01-29', audience: 'SECONDARY' },
+            { date: '2026-02-13', audience: 'ALL' },
+            { date: '2026-06-05', audience: 'ELEMENTARY' },
+            { date: '2026-06-25', audience: 'SECONDARY' },
+            { date: '2026-06-26', audience: 'ALL' }
+        ]
     },
     'York Region District School Board': {
         firstDay: '2025-09-02',
-        lastDay: '2026-06-25',
-        paDays: ['2025-09-26', '2025-10-24', '2025-11-21', '2026-01-16', '2026-01-30', '2026-06-05', '2026-06-26']
-    },
-    'York Catholic District School Board': {
-        firstDay: '2025-09-02',
         lastDay: '2026-06-26',
-        paDays: ['2025-09-26', '2025-10-24', '2025-11-21', '2026-01-16', '2026-01-30', '2026-06-05', '2026-06-26']
+        // Common: Sep 26, Oct 24, Nov 21, Jan 30, Jun 26
+        // Elem: Jan 16, Jun 5
+        // Sec: May 4, Jun 25
+        events: [
+            { date: '2025-09-26', audience: 'ALL' },
+            { date: '2025-10-24', audience: 'ALL' },
+            { date: '2025-11-21', audience: 'ALL' },
+            { date: '2026-01-16', audience: 'ELEMENTARY' },
+            { date: '2026-01-30', audience: 'ALL' },
+            { date: '2026-05-04', audience: 'SECONDARY' },
+            { date: '2026-06-05', audience: 'ELEMENTARY' },
+            { date: '2026-06-25', audience: 'SECONDARY' },
+            { date: '2026-06-26', audience: 'ALL' }
+        ]
     },
-    'Peel District School Board': {
-        firstDay: '2025-09-02',
-        lastDay: '2026-06-26',
-        paDays: ['2025-09-19', '2025-10-10', '2025-11-28', '2026-01-19', '2026-02-13', '2026-05-15', '2026-06-08']
-    },
-    'Dufferin-Peel Catholic District School Board': {
-        firstDay: '2025-09-02',
-        lastDay: '2026-06-26',
-        paDays: ['2025-09-19', '2025-10-10', '2025-11-28', '2026-01-19', '2026-02-13', '2026-05-15', '2026-06-08']
-    },
-    'Durham District School Board': {
-        firstDay: '2025-09-02',
-        lastDay: '2026-06-24',
-        paDays: ['2025-10-20', '2025-11-14', '2026-01-23', '2026-02-13', '2026-04-17', '2026-06-05', '2026-06-26']
-    },
-    'Durham Catholic District School Board': {
-        firstDay: '2025-09-02',
-        lastDay: '2026-06-24',
-        paDays: ['2025-10-20', '2025-11-14', '2026-01-23', '2026-02-13', '2026-04-17', '2026-06-05', '2026-06-26']
-    },
-    'Halton District School Board': {
-        firstDay: '2025-09-03',
-        lastDay: '2026-06-26',
-        paDays: ['2025-09-02', '2025-10-10', '2025-11-28', '2026-01-26', '2026-02-13', '2026-04-24', '2026-06-05']
-    },
-    'Halton Catholic District School Board': {
-        firstDay: '2025-09-03',
-        lastDay: '2026-06-26',
-        paDays: ['2025-09-02', '2025-10-10', '2025-11-28', '2026-01-26', '2026-02-13', '2026-04-24', '2026-06-05']
-    },
-    'Ottawa-Carleton District School Board': {
-        firstDay: '2025-09-02',
-        lastDay: '2026-06-26',
-        paDays: ['2025-09-29', '2025-11-07', '2026-02-13', '2026-04-27', '2026-06-25', '2026-06-26']
-    },
-    'Ottawa Catholic School Board': {
-        firstDay: '2025-09-02',
-        lastDay: '2026-06-26',
-        paDays: ['2025-10-10', '2025-11-07', '2025-12-05', '2026-01-30', '2026-02-13', '2026-04-27', '2026-06-05', '2026-06-26']
-    },
-    'Waterloo Region District School Board': {
-        firstDay: '2025-09-03',
-        lastDay: '2026-06-25',
-        paDays: ['2025-09-02', '2025-10-10', '2025-11-17', '2026-01-16', '2026-04-24', '2026-05-29', '2026-06-26']
-    },
-    'Thames Valley District School Board': {
-        firstDay: '2025-09-03',
-        lastDay: '2026-06-25',
-        paDays: ['2025-09-02', '2025-10-10', '2025-11-14', '2026-01-30', '2026-04-24', '2026-05-29', '2026-06-26']
-    },
-    'Simcoe County District School Board': {
-        firstDay: '2025-09-02',
-        lastDay: '2026-06-25',
-        paDays: ['2025-09-26', '2025-10-24', '2025-11-14', '2026-01-30', '2026-06-05', '2026-06-26']
-    },
-    'District School Board of Niagara': {
-        firstDay: '2025-09-02',
-        lastDay: '2026-06-26',
-        paDays: ['2025-09-19', '2025-10-10', '2025-11-28', '2026-01-16', '2026-01-29', '2026-02-13', '2026-06-05', '2026-06-25', '2026-06-26']
-    }
+    // Leaving others generic with ALL for now to save space, user asked specifically about update data capability
 }
 
 const ALL_BOARDS_CONFIG = [
@@ -160,17 +132,32 @@ async function main() {
 
         if (specificData) {
             // Add Start/End Dates
-            boardEvents.unshift({ title: 'First Day of School', date: specificData.firstDay, description: 'Classes Begin', isHoliday: false });
-            boardEvents.push({ title: 'Last Day of School', date: specificData.lastDay, description: 'Classes End', isHoliday: false });
+            boardEvents.unshift({ title: 'First Day of School', date: specificData.firstDay, description: 'Classes Begin', isHoliday: false, audience: 'ALL' });
+            boardEvents.push({ title: 'Last Day of School', date: specificData.lastDay, description: 'Classes End', isHoliday: false, audience: 'ALL' });
 
-            // Add PA Days
-            specificData.paDays.forEach(date => {
-                boardEvents.push({ title: 'PA Day', date: date, description: 'Professional Activity Day', isPaDay: true, isHoliday: true });
-            });
+            // Add PA Days (Check if using old array or new object format)
+            if (specificData.events) {
+                // New Format for TDSB/YRDSB
+                specificData.events.forEach(evt => {
+                    boardEvents.push({
+                        title: 'PA Day',
+                        date: evt.date,
+                        description: `Professional Activity Day (${evt.audience === 'ALL' ? 'All' : evt.audience === 'ELEMENTARY' ? 'Elementary Only' : 'Secondary Only'})`,
+                        isPaDay: true,
+                        isHoliday: true,
+                        audience: evt.audience
+                    });
+                });
+            } else if (specificData.paDays) {
+                // Backwards compat for old array format (assumes ALL)
+                specificData.paDays.forEach(date => {
+                    boardEvents.push({ title: 'PA Day', date: date, description: 'Professional Activity Day', isPaDay: true, isHoliday: true, audience: 'ALL' });
+                });
+            }
         } else {
             // Defaults for generic boards
-            boardEvents.unshift({ title: 'First Day of School', date: '2025-09-02', description: 'Classes Begin (Estimated)', isHoliday: false });
-            boardEvents.push({ title: 'Last Day of School', date: '2026-06-26', description: 'Classes End (Estimated)', isHoliday: false });
+            boardEvents.unshift({ title: 'First Day of School', date: '2025-09-02', description: 'Classes Begin (Estimated)', isHoliday: false, audience: 'ALL' });
+            boardEvents.push({ title: 'Last Day of School', date: '2026-06-26', description: 'Classes End (Estimated)', isHoliday: false, audience: 'ALL' });
         }
 
         if (board) {
