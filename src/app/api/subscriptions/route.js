@@ -76,3 +76,35 @@ export async function DELETE(req) {
         return new NextResponse("Error", { status: 500 });
     }
 }
+// PUT: Batch Update Subscriptions (Select & Save Pattern)
+export async function PUT(req) {
+    const session = await auth();
+    if (!session?.user?.id) return new NextResponse("Unauthorized", { status: 401 });
+
+    try {
+        const { boardIds } = await req.json(); // Array of IDs
+
+        // Using transaction to ensure clean overwrite
+        await prisma.$transaction(async (tx) => {
+            // 1. Delete all existing subscriptions for this user
+            await tx.schoolBoardSubscription.deleteMany({
+                where: { userId: session.user.id }
+            });
+
+            // 2. Create new subscriptions
+            if (boardIds.length > 0) {
+                await tx.schoolBoardSubscription.createMany({
+                    data: boardIds.map(id => ({
+                        userId: session.user.id,
+                        schoolBoardId: id
+                    }))
+                });
+            }
+        });
+
+        return NextResponse.json({ success: true });
+    } catch (e) {
+        console.error("Batch Subscription Error:", e);
+        return new NextResponse("Error saving subscriptions", { status: 500 });
+    }
+}

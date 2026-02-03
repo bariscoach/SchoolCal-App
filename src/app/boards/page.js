@@ -2,7 +2,7 @@
 import { PrismaClient } from '@prisma/client';
 import Navbar from '../components/Navbar';
 import styles from './Boards.module.css';
-import BoardCard from '../components/BoardCard';
+import BoardSelector from '../components/BoardSelector';
 import { auth } from '../../auth';
 
 const prisma = new PrismaClient();
@@ -14,31 +14,26 @@ export default async function BoardsPage() {
     const boards = await prisma.schoolBoard.findMany();
 
     // Fetch user subscriptions if logged in
-    let subscribedBoardIds = new Set();
+    let initialSelectedIds = [];
     if (userId) {
         const subs = await prisma.schoolBoardSubscription.findMany({
             where: { userId: userId },
             select: { schoolBoardId: true }
         });
-        subscribedBoardIds = new Set(subs.map(s => s.schoolBoardId));
+        initialSelectedIds = subs.map(s => s.schoolBoardId);
     }
 
     return (
         <div className={styles.wrapper}>
             <Navbar />
             <div className={styles.container}>
-                <h1 className={styles.title}>Select Your School Board</h1>
-                <p className={styles.subtitle}>Follow the boards you want to see on your dashboard.</p>
+                <h1 className={styles.title}>Select Your School Boards</h1>
+                <p className={styles.subtitle}>Click to select the boards you want to follow, then click <strong>Save</strong>.</p>
 
-                <div className={styles.grid}>
-                    {boards.map(board => (
-                        <BoardCard
-                            key={board.id}
-                            board={board}
-                            isSubscribed={subscribedBoardIds.has(board.id)}
-                        />
-                    ))}
-                </div>
+                <BoardSelector
+                    boards={boards}
+                    initialSelectedIds={initialSelectedIds}
+                />
             </div>
         </div>
     );

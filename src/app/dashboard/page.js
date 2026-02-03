@@ -68,7 +68,7 @@ export default async function DashboardPage() {
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
                         <h2>My Calendars</h2>
                         <Link href="/boards" className="glass-button" style={{ fontSize: '0.9rem' }}>
-                            + Add Board
+                            ✎ Manage Boards
                         </Link>
                     </div>
 
