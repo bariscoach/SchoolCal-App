@@ -2,7 +2,7 @@
 import { SCHOOL_BOARDS } from '@/app/lib/data';
 
 export async function GET(request, { params }) {
-    const { boardId } = params;
+    const { boardId } = await params;
     const board = SCHOOL_BOARDS.find(b => b.id === boardId);
 
     if (!board) {
