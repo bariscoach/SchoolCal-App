@@ -20,5 +20,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             return session
         },
     },
-    secret: process.env.AUTH_SECRET, // Force use of env var
+    secret: process.env.AUTH_SECRET,
+    debug: true, // Enable logs to debug Vercel issue
+    trustHost: true, // Explicitly trust host for Vercel
 })
