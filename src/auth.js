@@ -6,8 +6,31 @@ import { PrismaClient } from "@prisma/client"
 
 const prisma = new PrismaClient()
 
+// export const { handlers, auth, signIn, signOut } = NextAuth({
+//     adapter: PrismaAdapter(prisma), // Disabled for Vercel SQLite compatibility
+//     session: { strategy: "jwt" },
+//     providers: [
+//         Google({
+//             clientId: process.env.GOOGLE_CLIENT_ID,
+//             clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+//             allowDangerousEmailAccountLinking: true,
+//         }),
+//     ],
+//     callbacks: {
+//         jwt({ token, user }) {
+//             if (user) token.id = user.id
+//             return token
+//         },
+//         session({ session, token }) {
+//             if (token?.id) session.user.id = token.id
+//             return session
+//         },
+//     },
+// })
+
 export const { handlers, auth, signIn, signOut } = NextAuth({
-    adapter: PrismaAdapter(prisma),
+    // adapter: PrismaAdapter(prisma), <-- Removed to prevent SQLite write errors on Vercel
+    session: { strategy: "jwt" },
     providers: [
         Google({
             clientId: process.env.GOOGLE_CLIENT_ID,
@@ -16,8 +39,12 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         }),
     ],
     callbacks: {
-        session({ session, user }) {
-            session.user.id = user.id
+        jwt({ token, user }) {
+            if (user) token.id = user.id
+            return token
+        },
+        session({ session, token }) {
+            if (token?.id) session.user.id = token.id
             return session
         },
     },
