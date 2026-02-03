@@ -2,13 +2,15 @@
 
 import { useState } from 'react';
 import styles from '../boards/Boards.module.css';
+import { useRouter } from 'next/navigation';
 
 export default function BoardCard({ board, isSubscribed: initialSubscribed }) {
     const [isSubscribed, setIsSubscribed] = useState(initialSubscribed);
     const [loading, setLoading] = useState(false);
+    const router = useRouter();
 
     const toggleSubscription = async (e) => {
-        e.preventDefault(); // Prevent Link navigation if wrapped in Link (though we will likely remove Link wrapper for this interaction)
+        e.preventDefault();
         setLoading(true);
 
         try {
@@ -21,9 +23,16 @@ export default function BoardCard({ board, isSubscribed: initialSubscribed }) {
 
             if (res.ok) {
                 setIsSubscribed(!isSubscribed);
+                router.refresh(); // Refresh to update dashboard/data if needed
+            } else if (res.status === 401) {
+                alert("Please sign in to follow boards.");
+                router.push('/login');
+            } else {
+                alert("Something went wrong. Please try again.");
             }
         } catch (error) {
             console.error(error);
+            alert("Network error. Please try again.");
         } finally {
             setLoading(false);
         }
