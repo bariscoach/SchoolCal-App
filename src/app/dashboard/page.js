@@ -16,35 +16,18 @@ export default async function DashboardPage({ searchParams }) {
 
     let subscribedBoards = [];
 
-    try {
-        if (boardId) {
-            const newBoard = await prisma.schoolBoard.findUnique({
-                where: { id: boardId },
-                include: { events: true }
-            });
-            if (newBoard) subscribedBoards.push(newBoard);
-        } else {
-            // Default: show all available boards for demo if none selected
-            // In real app, fetch from User.subscriptions
-            subscribedBoards = await prisma.schoolBoard.findMany({
-                include: { events: true }
-            });
-        }
-    } catch (error) {
-        console.error("Database connection failed (expected on Vercel without Postgres):", error);
-        // Fallback Mock Data for Demo
-        subscribedBoards = [
-            {
-                id: 'demo-1',
-                name: 'Demo Board (DB Offline)',
-                region: 'Ontario',
-                themeColor: '#4CAF50',
-                events: [
-                    { id: 1, title: 'First Day of School', date: '2023-09-05' },
-                    { id: 2, title: 'Winter Break', date: '2023-12-25' }
-                ]
-            }
-        ];
+    if (boardId) {
+        const newBoard = await prisma.schoolBoard.findUnique({
+            where: { id: boardId },
+            include: { events: true }
+        });
+        if (newBoard) subscribedBoards.push(newBoard);
+    } else {
+        // Default: show all available boards for demo if none selected
+        // In real app, fetch from User.subscriptions
+        subscribedBoards = await prisma.schoolBoard.findMany({
+            include: { events: true }
+        });
     }
 
     return (
