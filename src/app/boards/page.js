@@ -7,7 +7,16 @@ import styles from './Boards.module.css';
 const prisma = new PrismaClient();
 
 export default async function BoardsPage() {
-    const boards = await prisma.schoolBoard.findMany();
+    let boards = [];
+    try {
+        boards = await prisma.schoolBoard.findMany();
+    } catch (e) {
+        // Fallback for Vercel Demo
+        boards = [
+            { id: '1', name: 'Toronto District School Board', region: 'Toronto', themeColor: '#EDA83D' },
+            { id: '2', name: 'Peel District School Board', region: 'Peel', themeColor: '#4CAF50' },
+        ];
+    }
 
     return (
         <div className={styles.wrapper}>
