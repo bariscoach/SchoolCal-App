@@ -11,7 +11,9 @@ export default async function BoardsPage() {
     const session = await auth();
     const userId = session?.user?.id;
 
-    const boards = await prisma.schoolBoard.findMany();
+    const boards = await prisma.schoolBoard.findMany({
+        orderBy: { name: 'asc' }
+    });
 
     // Fetch user subscriptions if logged in
     let initialSelectedIds = [];
