@@ -1,27 +1,21 @@
-const { PrismaClient } = require('@prisma/client')
-const prisma = new PrismaClient()
-
-const ONTARIO_SCHOOL_YEAR_2025_2026 = {
+export const ONTARIO_SCHOOL_YEAR_2025_2026 = {
     firstDay: '2025-09-02',
     lastDay: '2026-06-26',
     holidays: [
-        { title: 'Labour Day', date: '2025-09-01', description: 'Statutory Holiday', isHoliday: true },
-        { title: 'First Day of School', date: '2025-09-02', description: 'School Starts' },
-        { title: 'Thanksgiving', date: '2025-10-13', description: 'Statutory Holiday', isHoliday: true },
-        { title: 'Winter Break Start', date: '2025-12-22', description: 'Schools Closed', isHoliday: true },
-        { title: 'New Years Day', date: '2026-01-01', description: 'Statutory Holiday', isHoliday: true },
-        { title: 'Winter Break Last Day', date: '2026-01-02', description: 'Last Day of Winter Break', isHoliday: true },
-        { title: 'Family Day', date: '2026-02-16', description: 'Statutory Holiday', isHoliday: true },
-        { title: 'March Break Start', date: '2026-03-16', description: 'Schools Closed', isHoliday: true },
-        { title: 'March Break Last Day', date: '2026-03-20', description: 'Last Day of March Break', isHoliday: true },
-        { title: 'Good Friday', date: '2026-04-03', description: 'Statutory Holiday', isHoliday: true },
-        { title: 'Easter Monday', date: '2026-04-06', description: 'Holiday', isHoliday: true },
-        { title: 'Victoria Day', date: '2026-05-18', description: 'Statutory Holiday', isHoliday: true },
-        { title: 'Last Day of School', date: '2026-06-26', description: 'School Ends' },
+        { title: 'Labour Day', date: '2025-09-01', description: 'Statutory Holiday' },
+        { title: 'Thanksgiving', date: '2025-10-13', description: 'Statutory Holiday' },
+        { title: 'Winter Break First Day', date: '2025-12-22', description: 'Schools Closed' },
+        { title: 'Winter Break Last Day', date: '2026-01-02', description: 'Schools Closed' },
+        { title: 'Family Day', date: '2026-02-16', description: 'Statutory Holiday' },
+        { title: 'March Break First Day', date: '2026-03-16', description: 'Schools Closed' },
+        { title: 'March Break Last Day', date: '2026-03-20', description: 'Schools Closed' },
+        { title: 'Good Friday', date: '2026-04-03', description: 'Statutory Holiday' },
+        { title: 'Easter Monday', date: '2026-04-06', description: 'Holiday' },
+        { title: 'Victoria Day', date: '2026-05-18', description: 'Statutory Holiday' },
     ]
 };
 
-const ALL_BOARDS = [
+export const ALLEGOMY_OF_BOARDS = [
     // Greater Toronto Area
     { name: 'Toronto District School Board', region: 'Toronto', themeColor: '#e11d48' },
     { name: 'Toronto Catholic District School Board', region: 'Toronto', themeColor: '#be123c' },
@@ -61,62 +55,7 @@ const ALL_BOARDS = [
     { name: 'Rainbow District School Board', region: 'Sudbury', themeColor: '#c2410c' },
     { name: 'Lakehead District School Board', region: 'Thunder Bay', themeColor: '#1d4ed8' },
 
-    // French Boards
+    // French Boards (Conseil scolaire)
     { name: 'Conseil scolaire Viamonde', region: 'Ontario (French Public)', themeColor: '#8b5cf6' },
     { name: 'Conseil scolaire catholique MonAvenir', region: 'Ontario (French Catholic)', themeColor: '#7c3aed' },
 ];
-
-async function main() {
-    console.log('🌱 Seeding Ontario School Boards...')
-
-    // Optional: Clear tables if you want a fresh start
-    // await prisma.event.deleteMany()
-    // await prisma.schoolBoard.deleteMany()
-
-    for (const board of ALL_BOARDS) {
-        // Upsert ensures we don't create duplicates if run multiple times
-        // We use name as a unique-ish lookup or just region+name
-        // But schema doesn't have unique name yet, checking logic:
-
-        // Find by Name first to avoid duplication
-        const existing = await prisma.schoolBoard.findFirst({
-            where: { name: board.name }
-        })
-
-        if (existing) {
-            console.log(`Skipping ${board.name} (already exists)`)
-
-            // Optionally update events here
-            // For now, we assume if board exists, its handled
-            continue;
-        }
-
-        await prisma.schoolBoard.create({
-            data: {
-                name: board.name,
-                region: board.region,
-                themeColor: board.themeColor,
-                events: {
-                    create: ONTARIO_SCHOOL_YEAR_2025_2026.holidays.map(h => ({
-                        title: h.title,
-                        date: h.date,
-                        description: h.description,
-                        isHoliday: h.isHoliday || false,
-                        isPaDay: false
-                    }))
-                }
-            }
-        })
-        console.log(`Created ${board.name}`)
-    }
-}
-
-main()
-    .then(async () => {
-        await prisma.$disconnect()
-    })
-    .catch(async (e) => {
-        console.error(e)
-        await prisma.$disconnect()
-        process.exit(1)
-    })
