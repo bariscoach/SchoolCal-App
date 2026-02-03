@@ -40,7 +40,7 @@ END:VCALENDAR`;
 
     return new Response(icsContent, {
         headers: {
-            'Content-Type': 'text/calendar',
+            'Content-Type': 'text/calendar; charset=utf-8',
             'Content-Disposition': `attachment; filename="${board.name.replace(/\s+/g, '_')}.ics"`,
         },
     });
