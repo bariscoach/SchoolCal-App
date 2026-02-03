@@ -27,8 +27,10 @@ export default async function BoardsPage() {
         <div className={styles.wrapper}>
             <Navbar />
             <div className={styles.container}>
-                <h1 className={styles.title}>Select Your School Boards</h1>
-                <p className={styles.subtitle}>Click to select the boards you want to follow, then click <strong>Save</strong>.</p>
+                <header className={styles.header}>
+                    <h1 className={styles.title}>Select Your School Boards</h1>
+                    <p className={styles.subtitle}>Follow the boards you want to see on your dashboard.</p>
+                </header>
 
                 <BoardSelector
                     boards={boards}

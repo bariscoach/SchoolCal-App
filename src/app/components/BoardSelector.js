@@ -1,14 +1,25 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from '../boards/Boards.module.css';
 import BoardCard from './BoardCard';
 
 export default function BoardSelector({ boards, initialSelectedIds }) {
     const [selectedIds, setSelectedIds] = useState(new Set(initialSelectedIds));
+    const [searchQuery, setSearchQuery] = useState('');
     const [loading, setLoading] = useState(false);
     const router = useRouter();
+
+    // Filter boards based on search
+    const filteredBoards = useMemo(() => {
+        if (!searchQuery) return boards;
+        const lowerQ = searchQuery.toLowerCase();
+        return boards.filter(board =>
+            board.name.toLowerCase().includes(lowerQ) ||
+            board.region.toLowerCase().includes(lowerQ)
+        );
+    }, [boards, searchQuery]);
 
     const handleToggle = (boardId) => {
         const next = new Set(selectedIds);
@@ -24,7 +35,7 @@ export default function BoardSelector({ boards, initialSelectedIds }) {
         setLoading(true);
         try {
             const res = await fetch('/api/subscriptions', {
-                method: 'PUT', // Batch replace
+                method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ boardIds: Array.from(selectedIds) })
             });
@@ -47,52 +58,51 @@ export default function BoardSelector({ boards, initialSelectedIds }) {
     };
 
     return (
-        <div>
-            <div className={styles.grid} style={{ marginBottom: '5rem' }}>
-                {boards.map(board => (
-                    <BoardCard
-                        key={board.id}
-                        board={board}
-                        isSelected={selectedIds.has(board.id)}
-                        onToggle={handleToggle}
-                    />
-                ))}
+        <div style={{ position: 'relative' }}>
+            {/* Search Filter */}
+            <div className={styles.searchContainer}>
+                <input
+                    type="text"
+                    placeholder="Search your school board..."
+                    className={styles.searchInput}
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                />
+            </div>
+
+            {/* List */}
+            <div className={styles.list}>
+                {filteredBoards.length > 0 ? (
+                    filteredBoards.map(board => (
+                        <BoardCard
+                            key={board.id}
+                            board={board}
+                            isSelected={selectedIds.has(board.id)}
+                            onToggle={handleToggle}
+                        />
+                    ))
+                ) : (
+                    <div style={{ textAlign: 'center', padding: '2rem', color: '#64748b' }}>
+                        No boards found matching "{searchQuery}"
+                    </div>
+                )}
             </div>
 
             {/* Floating Save Bar */}
-            <div style={{
-                position: 'fixed',
-                bottom: 0,
-                left: 0,
-                right: 0,
-                padding: '1.5rem',
-                background: 'rgba(0,0,0,0.8)',
-                backdropFilter: 'blur(10px)',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                gap: '1rem',
-                borderTop: '1px solid rgba(255,255,255,0.1)',
-                zIndex: 100
-            }}>
-                <span style={{ color: 'white', marginRight: '1rem' }}>
-                    {selectedIds.size} boards selected
-                </span>
-                <button
-                    onClick={handleSave}
-                    className="glass-button"
-                    disabled={loading}
-                    style={{
-                        background: 'linear-gradient(135deg, #10B981 0%, #059669 100%)',
-                        border: 'none',
-                        color: 'white',
-                        fontWeight: '600',
-                        padding: '0.8rem 2rem'
-                    }}
-                >
-                    {loading ? 'Saving...' : 'Save & Continue'}
-                </button>
-            </div>
+            {selectedIds.size > 0 && (
+                <div className={styles.floatingBar}>
+                    <span className={styles.count}>
+                        {selectedIds.size} selected
+                    </span>
+                    <button
+                        onClick={handleSave}
+                        className={styles.saveBtn}
+                        disabled={loading}
+                    >
+                        {loading ? 'Saving...' : 'Save Changes'}
+                    </button>
+                </div>
+            )}
         </div>
     );
 }
