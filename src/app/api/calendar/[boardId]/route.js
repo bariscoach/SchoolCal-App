@@ -19,23 +19,23 @@ export async function GET(request, { params }) {
         // Format date from YYYY-MM-DD to YYYYMMDD
         const dateStr = event.date.replace(/-/g, '');
 
-        return `BEGIN:VEVENT
-UID:${dateStr}-${boardId}-${event.id}@schoolcal.app
-DTSTAMP:${new Date().toISOString().replace(/[-:]/g, '').split('.')[0]}Z
-DTSTART;VALUE=DATE:${dateStr}
-DTEND;VALUE=DATE:${dateStr}
-SUMMARY:${event.title} - ${board.name}
-DESCRIPTION:School Calendar Event: ${event.title}. PA Day: ${event.isPaDay}. Holiday: ${event.isHoliday}
+        return `BEGIN:VEVENT\r
+UID:${dateStr}-${boardId}-${event.id}@schoolcal.app\r
+DTSTAMP:${new Date().toISOString().replace(/[-:]/g, '').split('.')[0]}Z\r
+DTSTART;VALUE=DATE:${dateStr}\r
+DTEND;VALUE=DATE:${dateStr}\r
+SUMMARY:${event.title} - ${board.name}\r
+DESCRIPTION:School Calendar Event: ${event.title}. PA Day: ${event.isPaDay}. Holiday: ${event.isHoliday}\r
 END:VEVENT`;
-    }).join('\n');
+    }).join('\r\n');
 
-    const icsContent = `BEGIN:VCALENDAR
-VERSION:2.0
-PRODID:-//SchoolCal//Ontario Boards//EN
-NAME:${board.name}
-X-WR-CALNAME:${board.name}
-CALSCALE:GREGORIAN
-${events}
+    const icsContent = `BEGIN:VCALENDAR\r
+VERSION:2.0\r
+PRODID:-//SchoolCal//Ontario Boards//EN\r
+NAME:${board.name}\r
+X-WR-CALNAME:${board.name}\r
+CALSCALE:GREGORIAN\r
+${events}\r
 END:VCALENDAR`;
 
     return new Response(icsContent, {

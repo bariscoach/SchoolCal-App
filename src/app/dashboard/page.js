@@ -108,7 +108,9 @@ export default async function DashboardPage() {
                                     </div>
                                     <div className={styles.actions}>
                                         <a
-                                            href={`https://calendar.google.com/calendar/r?cid=${process.env.NEXT_PUBLIC_URL || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'https://school-cal-app.vercel.app')}/api/calendar/${board.id}`}
+                                            href={`https://calendar.google.com/calendar/r?cid=${encodeURIComponent(
+                                                `${process.env.NEXT_PUBLIC_URL || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'https://school-cal-app.vercel.app')}/api/calendar/${board.id}`
+                                            )}`}
                                             target="_blank"
                                             className={`glass-button ${styles.btnPrimary}`}
                                         >
