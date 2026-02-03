@@ -62,8 +62,8 @@ export default function SignupPage() {
                 </form>
 
                 <div style={{ marginTop: '1.5rem', textAlign: 'center' }}>
-                    <span style={{ color: '#94a3b8', fontSize: '0.9rem' }}>Or continue with</span>
-                    <GoogleSignInButton />
+                    <span style={{ color: '#94a3b8', fontSize: '0.9rem' }}>Or</span>
+                    <GoogleSignInButton text="Sign up with Google" />
                 </div>
 
                 <p className={styles.footer}>

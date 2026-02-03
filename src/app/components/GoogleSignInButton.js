@@ -3,7 +3,7 @@
 
 import { signIn } from 'next-auth/react';
 
-export default function GoogleSignInButton() {
+export default function GoogleSignInButton({ text = "Sign in with Google" }) {
     return (
         <button
             onClick={() => signIn('google', { callbackUrl: '/dashboard' })}
@@ -18,7 +18,7 @@ export default function GoogleSignInButton() {
                 gap: '0.5rem'
             }}
         >
-            <span>🇬</span> Sign in with Google
+            <span>🇬</span> {text}
         </button>
     );
 }
