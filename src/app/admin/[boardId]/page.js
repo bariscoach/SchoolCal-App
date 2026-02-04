@@ -3,7 +3,7 @@ import { redirect } from 'next/navigation';
 import { PrismaClient } from '@prisma/client';
 import Link from 'next/link';
 import { addEvent, deleteEvent } from '../actions';
-import styles from './styles.module.css'; // We'll make a quick style file or use inline for speed
+import { addEvent, deleteEvent } from '../actions';
 
 const prisma = new PrismaClient();
 
