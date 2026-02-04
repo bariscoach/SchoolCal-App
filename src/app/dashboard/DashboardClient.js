@@ -80,9 +80,9 @@ export default function DashboardClient({ subscribedBoards, userId }) {
                             {filteredBoards.map(board => (
                                 <div key={board.id} className={`glass-panel ${styles.card}`}>
                                     <div className={styles.cardHeader}>
-                                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                            <div style={{ width: 12, height: 12, borderRadius: '50%', background: board.themeColor }}></div>
-                                            <h3>{board.name}</h3>
+                                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', overflow: 'hidden' }}>
+                                            <div style={{ width: 12, height: 12, minWidth: 12, borderRadius: '50%', background: board.themeColor }}></div>
+                                            <h3 title={board.name}>{board.name}</h3>
                                         </div>
                                         <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
                                             <span className={styles.region}>{board.region}</span>

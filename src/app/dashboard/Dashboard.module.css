@@ -60,6 +60,9 @@
 .cardHeader h3 {
     font-size: 1.25rem;
     margin-bottom: 0.25rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .region {
