@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import DashboardClient from './DashboardClient';
+import SubscriptionWall from './SubscriptionWall';
 import { auth } from '../../auth';
 import Navbar from '../components/Navbar';
 import Link from 'next/link';
@@ -22,6 +23,23 @@ export default async function DashboardPage() {
                 </div>
             </div>
         )
+    }
+
+    // Fetch fresh user data (session might be stale)
+    const user = await prisma.user.findUnique({
+        where: { id: userId },
+        select: { subscriptionStatus: true, role: true }
+    });
+
+    const isSubscribed = user?.subscriptionStatus === 'active' || user?.role === 'ADMIN';
+
+    if (!isSubscribed) {
+        return (
+            <div className={styles.wrapper}>
+                <Navbar />
+                <SubscriptionWall />
+            </div>
+        );
     }
 
     const subscriptions = await prisma.schoolBoardSubscription.findMany({
