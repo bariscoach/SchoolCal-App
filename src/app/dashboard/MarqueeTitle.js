@@ -30,12 +30,13 @@ export default function MarqueeTitle({ text }) {
             <div
                 ref={textRef}
                 className={isOverflowing ? styles.marqueeContent : ''}
+                style={isOverflowing ? { minWidth: '100%', display: 'flex', gap: '2rem' } : {}}
             >
-                {text}
-                {/* Duplicate text for seamless loop if using infinite scroll, 
-                    OR just standard scroll. For "Back and Forth" or simple scroll, 
-                    single text is usually enough with specific CSS. 
-                    Let's use a simple CSS animation that translates X. */}
+                {/* Primary Text */}
+                <span>{text}</span>
+
+                {/* Duplicate for seamless loop if overflowing */}
+                {isOverflowing && <span aria-hidden="true">{text}</span>}
             </div>
         </div>
     );
