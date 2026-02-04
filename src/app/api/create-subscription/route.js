@@ -33,19 +33,34 @@ export async function POST(request) {
             });
         }
 
-        // 2. Create Subscription (Incomplete)
+        // 2. Get or Create Price (Idempotent via lookup_key)
+        const prices = await stripe.prices.list({
+            lookup_keys: ['schoolcal_yearly_599'],
+            limit: 1,
+        });
+
+        let priceId;
+        if (prices.data.length > 0) {
+            priceId = prices.data[0].id;
+        } else {
+            const price = await stripe.prices.create({
+                currency: 'cad',
+                unit_amount: 599,
+                recurring: { interval: 'year' },
+                product_data: {
+                    name: 'SchoolCal Yearly Subscription',
+                    description: 'Access to all school calendars & predictions',
+                },
+                lookup_key: 'schoolcal_yearly_599',
+            });
+            priceId = price.id;
+        }
+
+        // 3. Create Subscription
         const subscription = await stripe.subscriptions.create({
             customer: customerId,
             items: [{
-                price_data: {
-                    currency: 'cad',
-                    product_data: {
-                        name: 'SchoolCal Yearly Subscription',
-                        description: 'Access to all school calendars & predictions',
-                    },
-                    unit_amount: 599, // $5.99
-                    recurring: { interval: 'year' },
-                },
+                price: priceId,
             }],
             payment_behavior: 'default_incomplete',
             payment_settings: { save_default_payment_method: 'on_subscription' },
