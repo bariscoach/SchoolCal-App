@@ -99,7 +99,7 @@ export default function DashboardClient({ subscribedBoards, userId }) {
                                                     {board.nextEvent.title}
                                                 </div>
                                                 <div style={{ color: board.themeColor, marginTop: '0.2rem' }}>
-                                                    {new Date(board.nextEvent.date).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}
+                                                    {new Date(board.nextEvent.date + 'T12:00:00').toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}
                                                 </div>
                                                 {board.nextEvent.isPaDay && <span style={{ display: 'inline-block', marginTop: '0.5rem', padding: '2px 8px', borderRadius: '12px', background: 'rgba(255,255,255,0.1)', fontSize: '0.75rem' }}>PA Day</span>}
                                                 {board.nextEvent.audience !== 'ALL' && <span style={{ display: 'inline-block', marginTop: '0.5rem', marginLeft: '0.5rem', padding: '2px 8px', borderRadius: '12px', background: 'rgba(255,255,255,0.1)', fontSize: '0.75rem' }}>{board.nextEvent.audience.charAt(0) + board.nextEvent.audience.slice(1).toLowerCase()} Only</span>}
