@@ -3,7 +3,7 @@ import { redirect } from 'next/navigation';
 import { PrismaClient } from '@prisma/client';
 import Link from 'next/link';
 import { addEvent, deleteEvent } from '../actions';
-import { addEvent, deleteEvent } from '../actions';
+
 
 const prisma = new PrismaClient();
 
