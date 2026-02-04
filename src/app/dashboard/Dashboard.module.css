@@ -85,13 +85,8 @@
         transform: translateX(0);
     }
 
-    10% {
-        transform: translateX(0);
-    }
-
-    /* Pause briefly at start */
     100% {
-        transform: translateX(-100%);
+        transform: translateX(-50%);
     }
 }
 
