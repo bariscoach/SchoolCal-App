@@ -49,7 +49,6 @@ export async function POST(request) {
                 recurring: { interval: 'year' },
                 product_data: {
                     name: 'SchoolCal Yearly Subscription',
-                    description: 'Access to all school calendars & predictions',
                 },
                 lookup_key: 'schoolcal_yearly_599',
             });
