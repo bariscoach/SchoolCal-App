@@ -39,6 +39,9 @@ export default function DashboardClient({ subscribedBoards, userId }) {
                         <span className={styles.statusValue}>Active (Yearly)</span>
                     </div>
 
+                    {/* Weather Widget */}
+                    {filteredBoards.length > 0 && <WeatherWidget board={filteredBoards[0]} />}
+
                     {/* Level Toggle */}
                     <div style={{ marginTop: '1.5rem', display: 'inline-flex', background: 'rgba(255,255,255,0.1)', padding: '4px', borderRadius: '50px' }}>
                         {['ALL', 'ELEMENTARY', 'SECONDARY'].map(l => (
