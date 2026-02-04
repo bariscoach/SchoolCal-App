@@ -20,9 +20,6 @@ export default async function Navbar() {
                 <a href="/#features">Features</a>
                 <a href="/#how-it-works">How it Works</a>
                 <a href="/#pricing">Pricing</a>
-                {user?.role === 'ADMIN' && (
-                    <Link href="/admin" style={{ color: '#fbbf24', fontWeight: 'bold' }}>Admin Center</Link>
-                )}
             </div>
             <div className={styles.actions}>
                 {user ? (
