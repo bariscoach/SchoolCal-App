@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import WeatherWidget from './WeatherWidget';
 import styles from './Dashboard.module.css';
 
 export default function DashboardClient({ subscribedBoards, userId }) {
