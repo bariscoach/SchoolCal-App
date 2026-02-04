@@ -35,5 +35,10 @@ export default async function DashboardPage() {
 
     const subscribedBoards = subscriptions.map(sub => sub.schoolBoard);
 
-    return <DashboardClient subscribedBoards={subscribedBoards} userId={userId} />;
+    return (
+        <div className={styles.wrapper}>
+            <Navbar />
+            <DashboardClient subscribedBoards={subscribedBoards} userId={userId} />
+        </div>
+    );
 }

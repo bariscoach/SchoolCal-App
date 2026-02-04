@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import Navbar from '../components/Navbar';
 import Link from 'next/link';
 import styles from './Dashboard.module.css';
 
@@ -28,7 +27,6 @@ export default function DashboardClient({ subscribedBoards, userId }) {
 
     return (
         <div className={styles.wrapper}>
-            <Navbar />
             <div className={styles.container}>
                 <header className={styles.header}>
                     <h1>My Dashboard</h1>
