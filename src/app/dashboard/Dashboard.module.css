@@ -57,12 +57,48 @@
     margin-bottom: 1.5rem;
 }
 
-.cardHeader h3 {
+/* Marquee Styles */
+.marqueeContainer {
     font-size: 1.25rem;
+    font-weight: bold;
     margin-bottom: 0.25rem;
     white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis;
+    position: relative;
+    /* Mask to fade edges */
+    mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+}
+
+.marqueeContent {
+    display: inline-block;
+    padding-left: 0;
+    animation: marquee 15s linear infinite;
+}
+
+/* Pause on hover for readability */
+.marqueeContainer:hover .marqueeContent {
+    animation-play-state: paused;
+}
+
+@keyframes marquee {
+    0% {
+        transform: translateX(0);
+    }
+
+    10% {
+        transform: translateX(0);
+    }
+
+    /* Pause briefly at start */
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+.cardHeader h3 {
+    /* Fallback / Reset */
+    margin: 0;
+    /* Handled by container */
 }
 
 .region {
