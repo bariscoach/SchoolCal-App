@@ -2,14 +2,11 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import WeatherWidget from './WeatherWidget';
+import BoardWeather from './BoardWeather';
 import styles from './Dashboard.module.css';
 
 export default function DashboardClient({ subscribedBoards, userId }) {
     const [level, setLevel] = useState('ALL'); // ALL, ELEMENTARY, SECONDARY
-
-    console.log("Dashboard Debug: Subscribed Boards:", subscribedBoards.length);
-    subscribedBoards.forEach(b => console.log(` - ${b.name}: Lat=${b.latitude}`));
 
     // Filter events based on level
     const filteredBoards = subscribedBoards.map(board => {
@@ -38,9 +35,6 @@ export default function DashboardClient({ subscribedBoards, userId }) {
                         <span className={styles.statusLabel}>Subscription:</span>
                         <span className={styles.statusValue}>Active (Yearly)</span>
                     </div>
-
-                    {/* Weather Widget */}
-                    {filteredBoards.length > 0 && <WeatherWidget board={filteredBoards[0]} />}
 
                     {/* Level Toggle */}
                     <div style={{ marginTop: '1.5rem', display: 'inline-flex', background: 'rgba(255,255,255,0.1)', padding: '4px', borderRadius: '50px' }}>
@@ -90,7 +84,11 @@ export default function DashboardClient({ subscribedBoards, userId }) {
                                             <div style={{ width: 12, height: 12, borderRadius: '50%', background: board.themeColor }}></div>
                                             <h3>{board.name}</h3>
                                         </div>
-                                        <span className={styles.region}>{board.region}</span>
+                                        <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                                            <span className={styles.region}>{board.region}</span>
+                                            {/* Weather Component */}
+                                            <BoardWeather latitude={board.latitude} longitude={board.longitude} />
+                                        </div>
                                     </div>
                                     <div className={styles.eventsPreview}>
                                         {board.nextEvent ? (
