@@ -21,10 +21,10 @@ export default function Pricing() {
                     </div>
 
                     <ul className={styles.list}>
-                        <li>✅ Single School Board Calendar</li>
-                        <li>✅ Auto-Sync to Phone & Laptop</li>
-                        <li>✅ Email Reminders</li>
-                        <li>✅ Cancel Anytime</li>
+                        <li>✅ Unlimited School Boards</li>
+                        <li>✅ Auto-Sync to iPhone & Google Cal</li>
+                        <li>✅ Snow Day & Bus Predictions</li>
+                        <li>✅ Elementary/Secondary Filters</li>
                     </ul>
 
                     <Link href="/signup" className={`glass-button ${styles.button}`}>

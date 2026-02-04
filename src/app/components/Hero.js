@@ -11,8 +11,8 @@ export default function Hero() {
                     Never Miss a <span className={styles.gradientText}>PA Day</span> Again
                 </h1>
                 <p className={styles.subtitle}>
-                    Automatically sync your child's school calendar to your phone.
-                    Get notified about PA days, holidays, and early dismissals.
+                    Automatically sync local school holidays to your personal calendar.
+                    Plan ahead for PA days, early dismissals, and inclement weather.
                 </p>
                 <div className={styles.ctaGroup}>
                     <Link href="/signup" className="glass-button">

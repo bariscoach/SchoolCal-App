@@ -6,17 +6,17 @@ export default function Features() {
         {
             icon: "📅",
             title: "Auto-Sync Calendar",
-            description: "One-click integration with Google Calendar, Outlook, and Apple Calendar (iCal). Updates automatically."
+            description: "One-click connection to Google Calendar, Outlook, and iPhone. Dates update automatically."
         },
         {
-            icon: "🔔",
-            title: "Smart Notifications",
-            description: "Get reminded 1 day before every PA Day, school holiday, or early dismissal."
+            icon: "❄️",
+            title: "Snow Day Predictor",
+            description: "Check the odds of bus cancellations and school closures based on real-time weather data."
         },
         {
-            icon: "🏫",
-            title: "Multi-Board Support",
-            description: "We track all school boards in Ontario. Multiple kids in different boards? No problem."
+            icon: "🎒",
+            title: "Audience Filtering",
+            description: "Only see what matters. Filter for Elementary or Secondary school events instantly."
         }
     ];
 
