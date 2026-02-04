@@ -8,6 +8,9 @@ import styles from './Dashboard.module.css';
 export default function DashboardClient({ subscribedBoards, userId }) {
     const [level, setLevel] = useState('ALL'); // ALL, ELEMENTARY, SECONDARY
 
+    console.log("Dashboard Debug: Subscribed Boards:", subscribedBoards.length);
+    subscribedBoards.forEach(b => console.log(` - ${b.name}: Lat=${b.latitude}`));
+
     // Filter events based on level
     const filteredBoards = subscribedBoards.map(board => {
         const filteredEvents = board.events.filter(e =>
