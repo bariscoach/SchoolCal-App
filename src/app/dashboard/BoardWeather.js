@@ -14,11 +14,6 @@ export default function BoardWeather({ latitude, longitude }) {
         let addDays = 1; // Default: Tomorrow
         if (day === 5) addDays = 3; // Friday -> Monday
         if (day === 6) addDays = 2; // Saturday -> Monday
-        // Sunday (0) -> Tomorrow (Monday) is already covered by default 1? 
-        // Sunday is 0. If today is Sunday, usually we want Monday. 
-        // Wait, if today is Sunday (0), 'Tomorrow' is Monday (1). Correct.
-        // If today is Friday (5), 'Tomorrow' is Sat. We want Mon (3 days later).
-        // If today is Saturday (6), 'Tomorrow' is Sun. We want Mon (2 days later).
 
         d.setDate(d.getDate() + addDays);
         return d.toISOString().split('T')[0]; // YYYY-MM-DD
@@ -60,33 +55,67 @@ export default function BoardWeather({ latitude, longitude }) {
 
     const temp = Math.round(weather.daily.temperature_2m_max[0]);
     const snow = weather.daily.snowfall_sum[0];
-    const precipProb = weather.daily.precipitation_probability_max[0];
+    const precipProb = weather.daily.precipitation_probability_max[0] / 100; // Normalize 0-1
 
-    // Formula: (SnowCm / 20) * PrecipProb. Cap at 95% (never 100% sure).
-    let prob = (snow / 20) * (precipProb / 100);
-    if (prob > 0.95) prob = 0.95;
-    const probabilityPercent = Math.round(prob * 100);
+    // Heuristics based on "Historical Data" patterns in Ontario
 
-    // Color code
-    let color = '#22c55e'; // Green
-    if (probabilityPercent > 30) color = '#eab308'; // Yellow
-    if (probabilityPercent > 60) color = '#ef4444'; // Red
+    // 1. Bus Cancellation (Sensitive)
+    // - Cancellations happen easily with freezing rain or ~15cm snow
+    let busChance = 0;
+    if (snow > 10) busChance += 0.4;
+    if (snow > 15) busChance += 0.4;
+    if (snow > 20) busChance += 0.2;
+    // Freezing rain proxy (if temp < 0 and high precip prob but low snow, likely ice)
+    if (temp < 0 && precipProb > 0.8 && snow < 5) busChance += 0.6;
+
+    busChance = busChance * precipProb; // Scale by probability of precip happening
+    if (busChance > 0.95) busChance = 0.95;
+
+    // 2. School Closure (Strict)
+    // - Rarely close. Needs >25-30cm snow or extreme cold/ice.
+    let schoolChance = 0;
+    if (snow > 20) schoolChance += 0.3;
+    if (snow > 30) schoolChance += 0.5;
+    if (temp < -30) schoolChance += 0.4; // Extreme cold
+    // Ice storm proxy
+    if (temp < 0 && precipProb > 0.9 && snow < 2) schoolChance += 0.5;
+
+    schoolChance = schoolChance * precipProb;
+    if (schoolChance > 0.95) schoolChance = 0.95;
+
+    const busPercent = Math.round(busChance * 100);
+    const schoolPercent = Math.round(schoolChance * 100);
+
+    // Color helpers
+    const getColor = (p) => {
+        if (p > 60) return '#ef4444'; // Red
+        if (p > 30) return '#eab308'; // Yellow
+        return 'rgba(255,255,255,0.6)'; // Neutral/Greenish
+    };
 
     return (
-        <div style={{ marginTop: '0.5rem', display: 'flex', gap: '0.8rem', alignItems: 'center', fontSize: '0.85rem' }}>
-            <div style={{ background: 'rgba(255,255,255,0.1)', padding: '2px 8px', borderRadius: '8px' }}>
-                🌡️ {temp}°C
+        <div style={{ marginTop: '0.5rem', fontSize: '0.85rem' }}>
+            {/* Temperature & Day */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '8px' }}>
+                <span style={{ background: 'rgba(255,255,255,0.1)', padding: '2px 8px', borderRadius: '8px', fontWeight: 'bold' }}>
+                    🌡️ {temp}°C
+                </span>
+                <span style={{ fontSize: '0.75rem', opacity: 0.6 }}>{getTargetDayName()}</span>
             </div>
 
-            {probabilityPercent > 0 ? (
-                <div style={{ color: color, fontWeight: 'bold' }}>
-                    ❄️ {probabilityPercent}% Chance ({getTargetDayName()})
+            <div style={{ background: 'rgba(0,0,0,0.2)', borderRadius: '8px', padding: '8px 10px' }}>
+                {/* Bus Prediction */}
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.8rem', marginBottom: '4px' }}>
+                    <span style={{ opacity: 0.9 }}>🚌 Bus Cancellation</span>
+                    <span style={{ fontWeight: 'bold', color: getColor(busPercent) }}>{busPercent}%</span>
                 </div>
-            ) : (
-                <div style={{ opacity: 0.6 }}>
-                    ❄️ 0% Chance ({getTargetDayName()})
+
+                {/* School Closure Prediction */}
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.8rem' }}>
+                    <span style={{ opacity: 0.9 }}>🏫 School Closure</span>
+                    <span style={{ fontWeight: 'bold', color: getColor(schoolPercent) }}>{schoolPercent}%</span>
                 </div>
-            )}
+            </div>
         </div>
     );
 }
