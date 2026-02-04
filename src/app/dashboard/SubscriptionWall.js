@@ -17,6 +17,7 @@ export default function SubscriptionWall() {
             await stripe.redirectToCheckout({ sessionId: id });
         } catch (err) {
             console.error(err);
+            alert("Payment connection failed: " + err.message + ". Please refresh and try again.");
             setLoading(false);
         }
     };
