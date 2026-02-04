@@ -20,6 +20,7 @@ model User {
   // Custom fields
   stripeCustomerId String?
   subscriptionStatus String? // active, past_due, canceled
+  role              String    @default("USER") // USER, ADMIN
   
   // Relations
   subscriptions  SchoolBoardSubscription[]
@@ -69,6 +70,8 @@ model SchoolBoard {
   region      String
   logoUrl     String?
   themeColor  String?  // hex code for UI customisation
+  latitude    Float?
+  longitude   Float?
   
   events        Event[]
   subscribers   SchoolBoardSubscription[]

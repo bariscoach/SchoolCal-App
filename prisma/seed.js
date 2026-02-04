@@ -84,40 +84,40 @@ const BOARD_SPECIFIC_DATA = {
 }
 
 const ALL_BOARDS_CONFIG = [
-    { name: 'Toronto District School Board', region: 'Toronto', themeColor: '#e11d48' },
-    { name: 'Toronto Catholic District School Board', region: 'Toronto', themeColor: '#be123c' },
-    { name: 'York Region District School Board', region: 'York Region', themeColor: '#7c3aed' },
-    { name: 'York Catholic District School Board', region: 'York Region', themeColor: '#6d28d9' },
-    { name: 'Peel District School Board', region: 'Peel Region', themeColor: '#eab308' },
-    { name: 'Dufferin-Peel Catholic District School Board', region: 'Peel Region', themeColor: '#ca8a04' },
-    { name: 'Durham District School Board', region: 'Durham Region', themeColor: '#2563eb' },
-    { name: 'Durham Catholic District School Board', region: 'Durham Region', themeColor: '#1d4ed8' },
-    { name: 'Halton District School Board', region: 'Halton Region', themeColor: '#059669' },
-    { name: 'Halton Catholic District School Board', region: 'Halton Region', themeColor: '#047857' },
-    { name: 'Ottawa-Carleton District School Board', region: 'Ottawa', themeColor: '#db2777' },
-    { name: 'Ottawa Catholic School Board', region: 'Ottawa', themeColor: '#be185d' },
-    { name: 'Waterloo Region District School Board', region: 'Waterloo', themeColor: '#65a30d' },
-    { name: 'Thames Valley District School Board', region: 'London', themeColor: '#0891b2' },
-    { name: 'Simcoe County District School Board', region: 'Simcoe County', themeColor: '#0284c7' },
-    { name: 'District School Board of Niagara', region: 'Niagara', themeColor: '#4f46e5' },
+    { name: 'Toronto District School Board', region: 'Toronto', themeColor: '#e11d48', latitude: 43.6532, longitude: -79.3832 },
+    { name: 'Toronto Catholic District School Board', region: 'Toronto', themeColor: '#be123c', latitude: 43.6532, longitude: -79.3832 },
+    { name: 'York Region District School Board', region: 'York Region', themeColor: '#7c3aed', latitude: 44.0592, longitude: -79.4613 },
+    { name: 'York Catholic District School Board', region: 'York Region', themeColor: '#6d28d9', latitude: 44.0592, longitude: -79.4613 },
+    { name: 'Peel District School Board', region: 'Peel Region', themeColor: '#eab308', latitude: 43.5890, longitude: -79.6441 },
+    { name: 'Dufferin-Peel Catholic District School Board', region: 'Peel Region', themeColor: '#ca8a04', latitude: 43.5890, longitude: -79.6441 },
+    { name: 'Durham District School Board', region: 'Durham Region', themeColor: '#2563eb', latitude: 43.8971, longitude: -78.8658 },
+    { name: 'Durham Catholic District School Board', region: 'Durham Region', themeColor: '#1d4ed8', latitude: 43.8971, longitude: -78.8658 },
+    { name: 'Halton District School Board', region: 'Halton Region', themeColor: '#059669', latitude: 43.3255, longitude: -79.7990 },
+    { name: 'Halton Catholic District School Board', region: 'Halton Region', themeColor: '#047857', latitude: 43.3255, longitude: -79.7990 },
+    { name: 'Ottawa-Carleton District School Board', region: 'Ottawa', themeColor: '#db2777', latitude: 45.4215, longitude: -75.6972 },
+    { name: 'Ottawa Catholic School Board', region: 'Ottawa', themeColor: '#be185d', latitude: 45.4215, longitude: -75.6972 },
+    { name: 'Waterloo Region District School Board', region: 'Waterloo', themeColor: '#65a30d', latitude: 43.4643, longitude: -80.5204 },
+    { name: 'Thames Valley District School Board', region: 'London', themeColor: '#0891b2', latitude: 42.9849, longitude: -81.2453 },
+    { name: 'Simcoe County District School Board', region: 'Simcoe County', themeColor: '#0284c7', latitude: 44.4001, longitude: -79.6663 },
+    { name: 'District School Board of Niagara', region: 'Niagara', themeColor: '#4f46e5', latitude: 43.1594, longitude: -79.2469 },
 
     // Boards using generic data
-    { name: 'Upper Canada District School Board', region: 'Eastern Ontario', themeColor: '#dc2626' },
-    { name: 'Renfrew County District School Board', region: 'Pembroke', themeColor: '#9ca3af' },
-    { name: 'London District Catholic School Board', region: 'London', themeColor: '#0e7490' },
-    { name: 'Greater Essex County District School Board', region: 'Windsor', themeColor: '#ea580c' },
-    { name: 'Waterloo Catholic District School Board', region: 'Waterloo', themeColor: '#4d7c0f' },
-    { name: 'Hamilton-Wentworth District School Board', region: 'Hamilton', themeColor: '#d97706' },
-    { name: 'Hamilton-Wentworth Catholic District School Board', region: 'Hamilton', themeColor: '#b45309' },
-    { name: 'Niagara Catholic District School Board', region: 'Niagara', themeColor: '#4338ca' },
-    { name: 'Simcoe Muskoka Catholic District School Board', region: 'Simcoe County', themeColor: '#0369a1' },
-    { name: 'Trillium Lakelands District School Board', region: 'Muskoka', themeColor: '#16a34a' },
-    { name: 'Near North District School Board', region: 'North Bay', themeColor: '#15803d' },
-    { name: 'Algoma District School Board', region: 'Sault Ste. Marie', themeColor: '#b91c1c' },
-    { name: 'Rainbow District School Board', region: 'Sudbury', themeColor: '#c2410c' },
-    { name: 'Lakehead District School Board', region: 'Thunder Bay', themeColor: '#1d4ed8' },
-    { name: 'Conseil scolaire Viamonde', region: 'Ontario (French Public)', themeColor: '#8b5cf6' },
-    { name: 'Conseil scolaire catholique MonAvenir', region: 'Ontario (French Catholic)', themeColor: '#7c3aed' },
+    { name: 'Upper Canada District School Board', region: 'Eastern Ontario', themeColor: '#dc2626', latitude: 45.0213, longitude: -74.7303 },
+    { name: 'Renfrew County District School Board', region: 'Pembroke', themeColor: '#9ca3af', latitude: 45.8267, longitude: -77.1109 },
+    { name: 'London District Catholic School Board', region: 'London', themeColor: '#0e7490', latitude: 42.9849, longitude: -81.2453 },
+    { name: 'Greater Essex County District School Board', region: 'Windsor', themeColor: '#ea580c', latitude: 42.1956, longitude: -83.0377 }, // Changed color from light grey
+    { name: 'Waterloo Catholic District School Board', region: 'Waterloo', themeColor: '#4d7c0f', latitude: 43.4643, longitude: -80.5204 },
+    { name: 'Hamilton-Wentworth District School Board', region: 'Hamilton', themeColor: '#d97706', latitude: 43.2557, longitude: -79.8711 },
+    { name: 'Hamilton-Wentworth Catholic District School Board', region: 'Hamilton', themeColor: '#b45309', latitude: 43.2557, longitude: -79.8711 },
+    { name: 'Niagara Catholic District School Board', region: 'Niagara', themeColor: '#4338ca', latitude: 43.1594, longitude: -79.2469 },
+    { name: 'Simcoe Muskoka Catholic District School Board', region: 'Simcoe County', themeColor: '#0369a1', latitude: 44.4001, longitude: -79.6663 },
+    { name: 'Trillium Lakelands District School Board', region: 'Muskoka', themeColor: '#16a34a', latitude: 45.0333, longitude: -79.3000 },
+    { name: 'Near North District School Board', region: 'North Bay', themeColor: '#15803d', latitude: 46.3091, longitude: -79.4608 },
+    { name: 'Algoma District School Board', region: 'Sault Ste. Marie', themeColor: '#b91c1c', latitude: 46.5136, longitude: -84.3411 },
+    { name: 'Rainbow District School Board', region: 'Sudbury', themeColor: '#c2410c', latitude: 46.4917, longitude: -80.9930 },
+    { name: 'Lakehead District School Board', region: 'Thunder Bay', themeColor: '#1d4ed8', latitude: 48.3809, longitude: -89.2477 },
+    { name: 'Conseil scolaire Viamonde', region: 'Ontario (French Public)', themeColor: '#8b5cf6', latitude: 43.6532, longitude: -79.3832 },
+    { name: 'Conseil scolaire catholique MonAvenir', region: 'Ontario (French Catholic)', themeColor: '#7c3aed', latitude: 43.6532, longitude: -79.3832 },
 ];
 
 async function main() {
@@ -139,6 +139,7 @@ async function main() {
             if (specificData.events) {
                 // New Format for TDSB/YRDSB
                 specificData.events.forEach(evt => {
+                    console.log(`Debug: Adding ${boardConfig.name} event ${evt.date} for ${evt.audience}`);
                     boardEvents.push({
                         title: 'PA Day',
                         date: evt.date,
@@ -172,6 +173,8 @@ async function main() {
                 where: { id: board.id },
                 data: {
                     themeColor: boardConfig.themeColor,
+                    latitude: boardConfig.latitude,
+                    longitude: boardConfig.longitude,
                     events: {
                         create: boardEvents
                     }
@@ -183,6 +186,8 @@ async function main() {
                     name: boardConfig.name,
                     region: boardConfig.region,
                     themeColor: boardConfig.themeColor,
+                    latitude: boardConfig.latitude,
+                    longitude: boardConfig.longitude,
                     events: {
                         create: boardEvents
                     }
