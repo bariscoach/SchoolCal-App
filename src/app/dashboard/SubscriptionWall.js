@@ -6,20 +6,10 @@ import getStripe from '../lib/stripe';
 export default function SubscriptionWall() {
     const [loading, setLoading] = useState(false);
 
-    const handleCheckout = async () => {
+    const handleCheckout = () => {
         setLoading(true);
-        try {
-            const res = await fetch('/api/checkout_sessions', { method: 'POST' });
-            if (!res.ok) throw new Error('Checkout failed');
-
-            const { id } = await res.json();
-            const stripe = await getStripe();
-            await stripe.redirectToCheckout({ sessionId: id });
-        } catch (err) {
-            console.error(err);
-            alert("Payment connection failed: " + err.message + ". Please refresh and try again.");
-            setLoading(false);
-        }
+        // Redirect to our custom checkout page
+        window.location.href = '/checkout';
     };
 
     return (
