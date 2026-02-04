@@ -8,7 +8,12 @@ export default function BoardWeather({ latitude, longitude }) {
 
     // 1. Determine Target Date (Next School Day)
     const getNextSchoolDay = () => {
-        const d = new Date();
+        // Get "Now" in Toronto Time
+        const now = new Date();
+        const torontoStr = now.toLocaleDateString('en-CA', { timeZone: 'America/Toronto' }); // YYYY-MM-DD
+
+        // Create date object at Noon Toronto time to avoid DST/Boundary issues
+        const d = new Date(torontoStr + 'T12:00:00');
         const day = d.getDay(); // 0=Sun, 6=Sat
 
         let addDays = 1; // Default: Tomorrow
@@ -16,12 +21,16 @@ export default function BoardWeather({ latitude, longitude }) {
         if (day === 6) addDays = 2; // Saturday -> Monday
 
         d.setDate(d.getDate() + addDays);
-        return d.toISOString().split('T')[0]; // YYYY-MM-DD
+
+        // Return YYYY-MM-DD strict
+        return d.toLocaleDateString('en-CA');
     };
 
     const targetDate = getNextSchoolDay();
+
     // Helper for display text
     const getTargetDayName = () => {
+        // Create date from the YYYY-MM-DD string, forcing local time interpretation (safe for display)
         const d = new Date(targetDate + 'T12:00:00');
         return d.toLocaleDateString('en-US', { weekday: 'long' });
     };
